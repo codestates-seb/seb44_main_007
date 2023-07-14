@@ -44,13 +44,16 @@ public class MemberService {
     }
 
 
-    public Member updateMember (Member member) {
+    public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getName())
                 .ifPresent(name -> findMember.setName(name));
         Optional.ofNullable(member.getPassword())
-                .ifPresent(password -> findMember.setPassword(password));
+                .ifPresent(password -> {
+                    String encryptedPassword = passwordEncoder.encode(password);
+                    findMember.setPassword(encryptedPassword);
+                });
         Optional.ofNullable(member.getPhone())
                 .ifPresent(phone -> findMember.setPhone(phone));
 
