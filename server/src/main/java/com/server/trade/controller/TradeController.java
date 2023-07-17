@@ -25,7 +25,6 @@ import java.util.List;
 public class TradeController {
     private final static String TRADES_URL = "trades";
     private TradeService tradeService;
-//    private CustomUserDetailsService userDetailsService;
     private MemberRepository memberRepository;
     private TradeMapper mapper;
 
