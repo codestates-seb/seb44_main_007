@@ -16,7 +16,8 @@ public enum ExceptionCode {
     FIXED_NOT_FOUND(404, "fixed not found"),
     TOTAL_NOT_FOUND(404, "Total not found"),
     EMAIL_NOT_FOUND(404, "Email not found"),
-    TRADE_MEMBER_NOT_MATCH(404,"Trade memberId not match");
+    TRADE_MEMBER_NOT_MATCH(404,"Trade memberId not match"),
+    FIXED_MEMBER_NOT_MATCH(404,"Fixed memberId not match");
 
     @Getter
     private int status;
