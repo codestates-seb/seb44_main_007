@@ -5,8 +5,6 @@ import com.server.fixed.dto.FixedDto;
 import com.server.fixed.entity.Fixed;
 import com.server.fixed.mapper.FixedMapper;
 import com.server.fixed.service.FixedService;
-import com.server.trade.dto.TradeDto;
-import com.server.trade.entity.Trade;
 import com.server.utils.UriCreator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -23,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("fixeds")
 @Validated
+@CrossOrigin(origins = "*")
 public class FixedController {
     private final static String FIXED_URL = "fixeds";
     private final FixedService fixedService;

@@ -42,6 +42,7 @@ public class ControllerInterceptor implements HandlerInterceptor {
 
         // Trade 전체 권한 관련 설정
 //        if (method.equals("POST") && uri.startsWith("/trades")) return true;
+//        if (method.equals("GET") && uri.startsWith("/wishlists")) return true;
 
 
         try {

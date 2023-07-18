@@ -14,7 +14,7 @@ import java.util.List;
 public interface WishlistRepository extends JpaRepository<Wishlist, Long> {
 
     List<Wishlist> findAllByOrderByCreatedAtDesc();
-    List<Wishlist> findByPriceLessThan(BigDecimal upperLimit);
+    List<Wishlist> findByOrderByPriceAsc();
 
 
 }

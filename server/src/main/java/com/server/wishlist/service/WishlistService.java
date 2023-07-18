@@ -7,6 +7,7 @@ import com.server.wishlist.entity.Wishlist;
 import com.server.wishlist.repository.WishlistRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,10 +59,10 @@ public class WishlistService {
     }
 
     @Transactional(readOnly = true)
-    public List<Wishlist> findWishlistsByLowPrice(BigDecimal limitAmount) {
-        List<Wishlist> wishlists = wishlistRepository.findByPriceLessThan(limitAmount);
-        return wishlists;
+    public List<Wishlist> findWishlistsByLowPrice() {
+        return wishlistRepository.findByOrderByPriceAsc();
     }
+
 
     public void deleteWishlist(Long wishlistId) {
         Wishlist findWishlist = findVerifiedWishlist(wishlistId);

@@ -8,7 +8,6 @@ import com.server.wishlist.mapper.WishlistMapper;
 import com.server.wishlist.service.WishlistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +24,7 @@ import java.util.stream.Collectors;
 @Validated
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class WishlistController {
 
     private final static String WISHLIST_DEFAULT_URL = "/wishlists";
@@ -67,24 +66,22 @@ public class WishlistController {
                 new ResponseDto.SingleResponseDto<>(wishlistMapper.wishlistToWishlistResponseDto(wishlist))
                 , HttpStatus.OK);
     }
-
     @GetMapping
-    public ResponseEntity<List<Wishlist>> getWishlists(@RequestParam BigDecimal limitAmount, @RequestParam String tab) {
+    public ResponseEntity<List<WishlistDto.Response>> getWishlists(@RequestParam String tab) {
         List<Wishlist> wishlists;
         if (tab.equals("latest")) {
             wishlists = wishlistService.findWishlistsByLatest();
         } else if (tab.equals("lowPrice")) {
-            wishlists = wishlistService.findWishlistsByLowPrice(limitAmount);
+            wishlists = wishlistService.findWishlistsByLowPrice();
         } else {
             throw new IllegalArgumentException("Invalid tab parameter");
         }
 
         List<WishlistDto.Response> filteredWishlists = wishlists.stream()
-                .filter(wishlist -> wishlist.getPrice().compareTo(limitAmount) < 0)
                 .map(wishlistMapper::wishlistToWishlistResponseDto)
                 .collect(Collectors.toList());
 
-        return new ResponseEntity<>(wishlists, HttpStatus.OK);
+        return new ResponseEntity<>(filteredWishlists, HttpStatus.OK);
     }
 
     @DeleteMapping("/{wishlistId}")

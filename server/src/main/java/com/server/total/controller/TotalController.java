@@ -22,6 +22,7 @@ import java.net.URI;
 @Validated
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class TotalController {
 
     private final static String TOTALS_URL = "totals";

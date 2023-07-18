@@ -31,6 +31,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 
 @Configuration
 @RequiredArgsConstructor
@@ -55,8 +57,7 @@ public class SecurityConfig implements WebMvcConfigurer{
                 .headers().frameOptions().sameOrigin() // (1)
                 .and()
                 .csrf().disable()        // (2)
-                .cors().configurationSource(corsConfigurationSource()) //3
-                .and()
+                .cors(withDefaults())    // (3)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()  // (4)
@@ -76,6 +77,7 @@ public class SecurityConfig implements WebMvcConfigurer{
                         .antMatchers(HttpMethod.DELETE,"/members/**").authenticated()
                         .antMatchers("/trades").authenticated()
                         .antMatchers("/fixeds").authenticated()
+                        .antMatchers("/wishlists").authenticated()
                         .anyRequest().permitAll()
                 )
 
@@ -113,17 +115,20 @@ public class SecurityConfig implements WebMvcConfigurer{
     @Override //인터셉터와 연결
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ControllerInterceptor(jwtUtils))
-                .addPathPatterns("/members/**", "/login", "/trades/**", "/fixed/**");
+                .addPathPatterns("/members/**", "/login", "/trades/**", "/fixed/**", "/wishlists/**", "/totals/**");
     }
 
 
-    public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET","POST", "PATCH", "DELETE","OPTIONS")
-                .allowedHeaders("*")
-                .exposedHeaders("Authorization");
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry){
+//        registry.addMapping("/**")
+//                .allowedOrigins("*")
+//                .allowedMethods("GET","POST", "PATCH", "DELETE","OPTIONS")
+//                .allowedHeaders("*")
+//                .exposedHeaders("Authorization");
+//    }
+
+
 
 
     @Bean

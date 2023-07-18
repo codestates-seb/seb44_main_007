@@ -22,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/trades")
 @Validated
+@CrossOrigin(origins = "*")
 public class TradeController {
     private final static String TRADES_URL = "trades";
     private TradeService tradeService;
@@ -83,7 +84,7 @@ public class TradeController {
 
 
     @GetMapping
-    public ResponseEntity<List<Trade>> getTrades(
+    public ResponseEntity getTrades(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 

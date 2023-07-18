@@ -9,6 +9,8 @@ import org.springframework.util.Assert;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class WishlistDto {
 
@@ -69,5 +71,7 @@ public class WishlistDto {
                     .build();
         }
     }
+
+
 
 }
