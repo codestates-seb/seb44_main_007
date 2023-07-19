@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Validated
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = {"Authorization"})
 public class WishlistController {
 
     private final static String WISHLIST_DEFAULT_URL = "/wishlists";

@@ -31,18 +31,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfig implements WebMvcConfigurer{
+public class SecurityConfig implements WebMvcConfigurer {
     private final JwtUtils jwtUtils;
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils; // 추가
+    private final CustomAuthorityUtils authorityUtils;
     private final RedisService redisService;
     private final MemberRepository memberRepository;
-//    private final ControllerInterceptor controllerInterceptor;
 
     @Value("${spring.security.oauth2.client.registration.google.clientId}")
     private String clientId;
@@ -53,11 +50,12 @@ public class SecurityConfig implements WebMvcConfigurer{
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+             http
                 .headers().frameOptions().sameOrigin() // (1)
                 .and()
                 .csrf().disable()        // (2)
-                .cors(withDefaults())    // (3)
+                .cors()
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()  // (4)
@@ -119,14 +117,16 @@ public class SecurityConfig implements WebMvcConfigurer{
     }
 
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry){
-//        registry.addMapping("/**")
-//                .allowedOrigins("*")
-//                .allowedMethods("GET","POST", "PATCH", "DELETE","OPTIONS")
-//                .allowedHeaders("*")
-//                .exposedHeaders("Authorization");
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry){
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+//                .allowedOrigins("http://localhost:3000","http://localhost:8080") //소용없음
+                .allowedMethods("GET","POST", "PATCH", "DELETE","OPTIONS")
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization")
+                .exposedHeaders("Refresh");
+    }
 
 
 
@@ -141,6 +141,7 @@ public class SecurityConfig implements WebMvcConfigurer{
 
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("Refresh");
 
         source.registerCorsConfiguration("/**", configuration);
 
