@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -28,6 +29,12 @@ public class MemberDto {
         @NotBlank
         private String phone;
 
+        private LocalDate createdAt;
+
+        private String address;
+
+        private String imageURL;
+
 
     }
 
@@ -42,6 +49,10 @@ public class MemberDto {
         private String password;
 
         private String phone;
+
+        private String address;
+
+        private String imageURL;
 
         public Patch addMemberId(Long memberId) {
             Assert.notNull(memberId, "Member Id must not be Null");
@@ -78,6 +89,10 @@ public class MemberDto {
         private String email;
         private String name;
         private String phone;
+        private LocalDate createdAt;
+        private String address;
+        private String imageURL;
+
 
 
         public static Response response(Member member) {
@@ -86,6 +101,9 @@ public class MemberDto {
                     .email(member.getEmail())
                     .name(member.getName())
                     .phone(member.getPhone())
+                    .createdAt(member.getCreatedAt())
+                    .address(member.getAddress())
+                    .imageURL(member.getImageURL())
                     .build();
         }
     }

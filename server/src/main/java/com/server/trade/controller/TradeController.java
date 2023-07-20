@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/trades")
 @Validated
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class TradeController {
     private final static String TRADES_URL = "trades";
     private TradeService tradeService;

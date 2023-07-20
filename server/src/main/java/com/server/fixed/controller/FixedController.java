@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("fixeds")
 @Validated
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class FixedController {
     private final static String FIXED_URL = "fixeds";
     private final FixedService fixedService;

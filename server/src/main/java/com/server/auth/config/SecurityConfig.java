@@ -126,6 +126,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization")
                 .exposedHeaders("Refresh");
+
     }
 
 
@@ -142,6 +143,7 @@ public class SecurityConfig implements WebMvcConfigurer {
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.addExposedHeader("Authorization");
         configuration.addExposedHeader("Refresh");
+        configuration.addExposedHeader("MemberId");
 
         source.registerCorsConfiguration("/**", configuration);
 

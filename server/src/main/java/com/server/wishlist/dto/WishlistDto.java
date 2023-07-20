@@ -25,6 +25,8 @@ public class WishlistDto {
 
         private Category category;
 
+        private Integer priority;
+
 
         public void setMemberId(Long memberId) {
             this.memberId = memberId;
@@ -43,6 +45,8 @@ public class WishlistDto {
 
         private Category category;
 
+        private Integer priority;
+
 
 
         public Patch addwishlistId(Long wishlistId) {
@@ -56,10 +60,11 @@ public class WishlistDto {
     @AllArgsConstructor
     @Builder
     public static class Response {
-        private long wishlistId;
+        private Long wishlistId;
         private String wishlistName;
         private BigDecimal price;
         private Category category;
+        private Integer priority;
 
 
         public static Response response(Wishlist wishlist) {
@@ -68,6 +73,7 @@ public class WishlistDto {
                     .wishlistName(wishlist.getWishlistName())
                     .price(wishlist.getPrice())
                     .category(wishlist.getCategory())
+                    .priority(wishlist.getPriority())
                     .build();
         }
     }

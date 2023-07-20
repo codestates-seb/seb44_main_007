@@ -30,6 +30,9 @@ public class Wishlist extends Auditable {
     private Category category;
 
     @Column
+    private Integer priority;
+
+    @Column
     private Long memberId;
 
 }

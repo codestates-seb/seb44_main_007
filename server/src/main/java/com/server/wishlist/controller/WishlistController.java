@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Validated
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = {"Authorization"})
+@CrossOrigin
 public class WishlistController {
 
     private final static String WISHLIST_DEFAULT_URL = "/wishlists";
@@ -47,7 +47,7 @@ public class WishlistController {
     }
 
     @PatchMapping("/{wishlist-id}/{memberId}")
-    public ResponseEntity putWishlist(@PathVariable("wishlist-id") @Positive long wishlistId,
+    public ResponseEntity putWishlist(@PathVariable("wishlist-id") @Positive Long wishlistId,
                                       @PathVariable("memberId") @Positive Long memberId,
                                       @Valid @RequestBody WishlistDto.Patch requestBody) {
         Wishlist wishlist =
@@ -58,16 +58,17 @@ public class WishlistController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/{wishlist-id}")
-    public ResponseEntity getMember(
-            @PathVariable("wishlist-id") @Positive long wishlistId) {
+    @GetMapping("/{wishlist-id}/{memberId}")
+    public ResponseEntity getMember(@PathVariable("wishlist-id") @Positive Long wishlistId,
+                                    @PathVariable("memberId") @Positive Long memberId) {
         Wishlist wishlist = wishlistService.findWishlist(wishlistId);
         return new ResponseEntity<>(
                 new ResponseDto.SingleResponseDto<>(wishlistMapper.wishlistToWishlistResponseDto(wishlist))
                 , HttpStatus.OK);
     }
-    @GetMapping
-    public ResponseEntity<List<WishlistDto.Response>> getWishlists(@RequestParam String tab) {
+    @GetMapping("/{memberId}")
+    public ResponseEntity<List<WishlistDto.Response>> getWishlists(@RequestParam String tab,
+                                                                   @PathVariable("memberId") @Positive Long memberId) {
         List<Wishlist> wishlists;
         if (tab.equals("latest")) {
             wishlists = wishlistService.findWishlistsByLatest();
@@ -84,8 +85,9 @@ public class WishlistController {
         return new ResponseEntity<>(filteredWishlists, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{wishlistId}")
-    public ResponseEntity deleteWishlist(@PathVariable("wishlistId") @Positive Long wishlistId) {
+    @DeleteMapping("/{wishlistId}/{memberId}")
+    public ResponseEntity deleteWishlist(@PathVariable("wishlistId") @Positive Long wishlistId,
+                                         @PathVariable("memberId") @Positive Long memberId) {
         wishlistService.deleteWishlist(wishlistId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

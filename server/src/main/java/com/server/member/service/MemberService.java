@@ -52,6 +52,12 @@ public class MemberService {
                 });
         Optional.ofNullable(member.getPhone())
                 .ifPresent(phone -> findMember.setPhone(phone));
+        Optional.ofNullable(member.getAddress())
+                .ifPresent(address -> findMember.setAddress(address));
+        Optional.ofNullable(member.getImageURL())
+                .ifPresent(ImageURL -> findMember.setImageURL(ImageURL));
+        Optional.ofNullable(member.getPremium())
+                .ifPresent(premium -> findMember.setPremium(premium));
 
         return memberRepository.save(findMember);
     }

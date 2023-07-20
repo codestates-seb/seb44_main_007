@@ -37,6 +37,8 @@ public class Member extends Auditable{
     private String imageURL;
     @Column
     private Boolean premium;
+    @Column
+    private String address;
 
 
     @Enumerated(EnumType.STRING)

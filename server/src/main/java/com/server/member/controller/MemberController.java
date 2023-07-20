@@ -24,7 +24,7 @@ import java.util.List;
 @Validated
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class MemberController {
     private final static String MEMBER_DEFAULT_URL = "/members";
     private final MemberService memberService;

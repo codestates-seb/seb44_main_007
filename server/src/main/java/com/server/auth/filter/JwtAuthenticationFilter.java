@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-// 이 필터는 auth/login 에 접근할때만 동작한다
+// 이 필터는 /login 에 접근할때만 동작한다
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
@@ -59,6 +59,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String accessToken = delegateAccessToken(member);
         String refreshToken = delegateRefreshToken(member);
+        Long memberId = member.getMemberId();
 
         // redis -> key(email) : value(refreshToken) 저장, expireDate(refreshToken) 시간 지난 후 삭제됨
         redisService.setDataWithExpiration(
@@ -70,6 +71,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setHeader("Authorization", "Bearer " + accessToken);  // (4-4)
         response.setHeader("Refresh", refreshToken);
+        response.setHeader("MemberId", String.valueOf(memberId));
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
