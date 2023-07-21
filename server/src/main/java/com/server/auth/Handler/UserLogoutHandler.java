@@ -1,4 +1,4 @@
-package com.server.auth.Handler;
+package com.server.auth.handler;
 
 import com.server.auth.jwt.JwtTokenizer;
 import com.server.auth.redis.RedisService;

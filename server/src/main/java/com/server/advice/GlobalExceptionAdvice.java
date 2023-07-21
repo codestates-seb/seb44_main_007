@@ -58,13 +58,6 @@ public class GlobalExceptionAdvice {
                 .getStatus()));
     }
 
-//    @ExceptionHandler
-//    public ResponseEntity<ErrorResponse> handleBusinessLogicException(BusinessLogicException e) {
-//        ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
-//        log.debug("# BusinessLogicException: {}-{}", e.getExceptionCode(), e.getMessage());
-//
-//        return ResponseEntity.status(e.getExceptionCode().getStatus()).body(response);
-//    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
@@ -83,12 +76,6 @@ public class GlobalExceptionAdvice {
         return ErrorResponse.of(HttpStatus.BAD_REQUEST, message);
     }
 
-//    @ExceptionHandler
-//    @ResponseStatus(HttpStatus.FORBIDDEN)
-//    public ErrorResponse handleAccessDeniedException(AccessDeniedException e) {
-//        log.error("# handle AccessDeniedException: {}", e.getMessage());
-//        return ErrorResponse.of(HttpStatus.FORBIDDEN);
-//    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

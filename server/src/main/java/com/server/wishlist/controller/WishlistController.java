@@ -71,9 +71,9 @@ public class WishlistController {
                                                                    @PathVariable("memberId") @Positive Long memberId) {
         List<Wishlist> wishlists;
         if (tab.equals("latest")) {
-            wishlists = wishlistService.findWishlistsByLatest();
+            wishlists = wishlistService.findWishlistsByLatest(memberId);
         } else if (tab.equals("lowPrice")) {
-            wishlists = wishlistService.findWishlistsByLowPrice();
+            wishlists = wishlistService.findWishlistsByLowPrice(memberId);
         } else {
             throw new IllegalArgumentException("Invalid tab parameter");
         }
@@ -88,7 +88,7 @@ public class WishlistController {
     @DeleteMapping("/{wishlistId}/{memberId}")
     public ResponseEntity deleteWishlist(@PathVariable("wishlistId") @Positive Long wishlistId,
                                          @PathVariable("memberId") @Positive Long memberId) {
-        wishlistService.deleteWishlist(wishlistId);
+        wishlistService.deleteWishlist(wishlistId, memberId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

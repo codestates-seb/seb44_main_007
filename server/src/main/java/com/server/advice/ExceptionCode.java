@@ -11,7 +11,8 @@ public enum ExceptionCode {
     TOTAL_NOT_FOUND(404, "Total not found"),
     TRADE_MEMBER_NOT_MATCH(404,"Trade memberId not match"),
     FIXED_MEMBER_NOT_MATCH(404,"Fixed memberId not match"),
-    WISHLIST_MEMBER_NOT_MATCH(404, "Wishlist memberId not match");
+    WISHLIST_MEMBER_NOT_MATCH(404, "Wishlist memberId not match"),
+    TOTAL_MEMBER_NOT_MATCH(404, "Total memberId not match");
 
     @Getter
     private int status;

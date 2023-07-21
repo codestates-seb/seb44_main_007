@@ -27,6 +27,8 @@ public class WishlistDto {
 
         private Integer priority;
 
+        private Boolean available;
+
 
         public void setMemberId(Long memberId) {
             this.memberId = memberId;
@@ -47,6 +49,8 @@ public class WishlistDto {
 
         private Integer priority;
 
+        private Boolean available;
+
 
 
         public Patch addwishlistId(Long wishlistId) {
@@ -65,6 +69,7 @@ public class WishlistDto {
         private BigDecimal price;
         private Category category;
         private Integer priority;
+        private Boolean available;
 
 
         public static Response response(Wishlist wishlist) {
@@ -74,6 +79,7 @@ public class WishlistDto {
                     .price(wishlist.getPrice())
                     .category(wishlist.getCategory())
                     .priority(wishlist.getPriority())
+                    .available(wishlist.getAvailable())
                     .build();
         }
     }

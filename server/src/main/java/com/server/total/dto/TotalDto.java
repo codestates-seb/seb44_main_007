@@ -44,7 +44,7 @@ public class TotalDto {
     @NoArgsConstructor
     @Builder
     public static class Response {
-        private long totalId;
+        private Long totalId;
         private BigDecimal totalIncome;
         private BigDecimal totalOutcome;
         private BigDecimal goal;

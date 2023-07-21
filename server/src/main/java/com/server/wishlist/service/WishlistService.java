@@ -43,6 +43,10 @@ public class WishlistService {
                 .ifPresent(price -> findWishlist.setPrice(price));
         Optional.ofNullable(wishlist.getCategory())
                 .ifPresent(category -> findWishlist.setCategory(category));
+        Optional.ofNullable(wishlist.getPriority())
+                .ifPresent(priority -> findWishlist.setPriority(priority));
+        Optional.ofNullable(wishlist.getAvailable())
+                .ifPresent(available -> findWishlist.setAvailable(available));
         return wishlistRepository.save(findWishlist);
     }
 
@@ -54,18 +58,23 @@ public class WishlistService {
     }
 
     @Transactional(readOnly = true)
-    public List<Wishlist> findWishlistsByLatest() {
-        return wishlistRepository.findAllByOrderByCreatedAtDesc();
+    public List<Wishlist> findWishlistsByLatest(Long memberId) {
+        return wishlistRepository.findAllByMemberIdOrderByCreatedAtDesc(memberId);
+
     }
 
     @Transactional(readOnly = true)
-    public List<Wishlist> findWishlistsByLowPrice() {
-        return wishlistRepository.findByOrderByPriceAsc();
+    public List<Wishlist> findWishlistsByLowPrice(Long memberId) {
+        return wishlistRepository.findAllByMemberIdOrderByPriceAsc(memberId);
+
     }
 
 
-    public void deleteWishlist(Long wishlistId) {
+    public void deleteWishlist(Long wishlistId, Long memberId) {
         Wishlist findWishlist = findVerifiedWishlist(wishlistId);
+        if (!findWishlist.getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.WISHLIST_MEMBER_NOT_MATCH);
+        }
         wishlistRepository.delete(findWishlist);
     }
 

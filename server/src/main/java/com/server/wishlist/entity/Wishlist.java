@@ -35,5 +35,8 @@ public class Wishlist extends Auditable {
     @Column
     private Long memberId;
 
+    @Column
+    private Boolean available;
+
 }
 

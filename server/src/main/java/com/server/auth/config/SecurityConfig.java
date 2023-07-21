@@ -2,7 +2,7 @@ package com.server.auth.config;
 
 
 import com.server.auth.utils.CustomAuthorityUtils;
-import com.server.auth.Handler.*;
+import com.server.auth.handler.*;
 import com.server.auth.filter.JwtAuthenticationFilter;
 
 import com.server.auth.filter.JwtVerificationFilter;
